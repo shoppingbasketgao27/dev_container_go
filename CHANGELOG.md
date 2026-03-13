@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2026-03-13
+
+### Changed
+
+- Upgraded all GitHub Actions to Node.js 24-compatible versions:
+  actions/checkout v6.0.2, docker/setup-qemu-action v4.0.0,
+  docker/setup-buildx-action v4.0.0, docker/login-action v4.0.0,
+  docker/metadata-action v6.0.0, docker/build-push-action v7.0.0.
+
 ## [1.0.0-rc1] - 2026-03-13
 
 ### Added
