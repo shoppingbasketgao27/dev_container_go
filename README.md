@@ -6,8 +6,7 @@
 [![Go](https://img.shields.io/badge/Go-1.26.1-00ADD8)](#pre-installed-tools)
 [![Container](https://img.shields.io/badge/container-ghcr.io%2Fabitofhelp%2Fdev--container--go-0A66C2)](#image-name)
 
-Professional Go development container for cloud platform and desktop development
-with protobuf/gRPC and Bazel (Bzlmod) support.
+Professional Go development container for cloud and desktop platforms with protobuf/gRPC and Bazel (Bzlmod) support.
 
 ## Supported Architectures
 
